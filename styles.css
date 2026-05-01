@@ -617,8 +617,15 @@ section {
   border-top: 1px solid var(--line);
 }
 
+.site-footer p {
+  margin: 0;
+  text-align: center;
+}
+
 .site-footer a {
   color: var(--text-muted);
+  display: inline-block;
+  margin-left: 0.5rem;
 }
 
 .site-footer a:hover {
