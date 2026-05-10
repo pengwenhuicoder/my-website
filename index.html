@@ -1,0 +1,1447 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>彭文辉 | 产品经理</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-card: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --accent: #3b82f6;
+        --accent-dark: #2563eb;
+        --accent-light: #eff6ff;
+        --border-light: #e2e8f0;
+        --shadow-sm:
+          0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+        --shadow-md:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        --shadow-lg:
+          0 10px 15px -3px rgba(0, 0, 0, 0.05),
+          0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        --radius-card: 1rem;
+        --radius-btn: 2rem;
+        --transition: all 0.2s ease;
+        --container-width: 1120px;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          "Open Sans",
+          sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      .container {
+        max-width: var(--container-width);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        min-height: 70vh;
+      }
+
+      /* 导航 */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+        flex-wrap: wrap;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        background: linear-gradient(
+          135deg,
+          var(--text-primary) 0%,
+          var(--accent) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .logo:hover {
+        opacity: 0.8;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: var(--transition);
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-links a.active {
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.25rem;
+      }
+
+      /* 内容区域切换 */
+      .content-pane {
+        display: none;
+        animation: fadeIn 0.25s ease;
+      }
+      .content-pane.active-pane {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* 首页样式 */
+      .hero {
+        text-align: center;
+        padding: 3rem 0 2rem;
+      }
+      .hero-greeting {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #0f172a, var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero-desc {
+        max-width: 620px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+      }
+      .section-header {
+        text-align: center;
+        margin: 2rem 0 1.5rem;
+      }
+      .section-header h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.8rem;
+        margin: 1rem 0;
+      }
+      .project-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-card);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-light);
+        transition: var(--transition);
+      }
+      .project-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+      .project-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+      .project-card p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin: 0.5rem 0 1rem;
+      }
+      .card-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      .recent-list {
+        background: var(--bg-secondary);
+        border-radius: var(--radius-card);
+        padding: 1.5rem;
+        margin: 1rem 0 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .recent-item {
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: 40px;
+        font-size: 0.9rem;
+        border: 1px solid var(--border-light);
+      }
+      .two-cols {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+      .col-link {
+        background: var(--accent-light);
+        padding: 0.6rem 1.8rem;
+        border-radius: 40px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .col-link:hover {
+        background: var(--accent);
+        color: white;
+      }
+
+      /* 经历/项目/关于我 样式 (沿用之前，略作精简但内容完整) */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin: 2rem 0 3rem;
+      }
+      .exp-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-card);
+        border: 1px solid var(--border-light);
+        overflow: hidden;
+      }
+      .exp-header {
+        background: var(--bg-secondary);
+        padding: 1.2rem 1.8rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      .exp-company {
+        font-size: 1.35rem;
+        font-weight: 700;
+      }
+      .exp-meta {
+        font-size: 0.85rem;
+        color: var(--accent-dark);
+        background: var(--accent-light);
+        padding: 0.2rem 0.8rem;
+        border-radius: 30px;
+      }
+      .exp-details {
+        padding: 1rem 1.8rem 1.6rem;
+      }
+      .exp-details ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .exp-details li {
+        margin-bottom: 0.7rem;
+        padding-left: 1.4rem;
+        position: relative;
+        color: var(--text-secondary);
+      }
+      .exp-details li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+      .highlight {
+        background: #fef9e3;
+        padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        margin-top: 1rem;
+        border-left: 3px solid var(--accent);
+      }
+
+      .projects-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+      .project-detail-card {
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-card);
+        overflow: hidden;
+      }
+      .project-header {
+        background: var(--bg-secondary);
+        padding: 1rem 1.5rem;
+      }
+      .project-header h2 {
+        font-size: 1.3rem;
+      }
+      .project-content {
+        padding: 1.2rem 1.5rem;
+      }
+      .stats-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid var(--border-light);
+      }
+      .stat-item {
+        background: #f1f5f9;
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+      }
+
+      .posts-list {
+        max-width: 780px;
+        margin: 2rem auto;
+        background: var(--bg-card);
+        border-radius: var(--radius-card);
+        border: 1px solid var(--border-light);
+        overflow: hidden;
+      }
+      .post-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border-light);
+        flex-wrap: wrap;
+      }
+      .post-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+      .post-title {
+        color: var(--text-primary);
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .post-title:hover {
+        color: var(--accent);
+      }
+
+      .article-detail {
+        max-width: 840px;
+        margin: 1.5rem auto 2rem;
+        padding: 1.75rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-sm);
+      }
+      .article-detail h2 {
+        margin-bottom: 0.75rem;
+      }
+      .article-meta {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 1.25rem;
+      }
+      .article-body p {
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+      }
+      .article-body h3 {
+        font-size: 1.1rem;
+        margin: 1.4rem 0 0.8rem;
+      }
+      .article-body ul {
+        list-style: disc inside;
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+      }
+      .article-body ul li {
+        margin-bottom: 0.7rem;
+      }
+      .article-body blockquote {
+        margin: 1rem 0;
+        padding-left: 1rem;
+        border-left: 3px solid var(--accent);
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      .about-card {
+        max-width: 680px;
+        margin: 1.75rem auto 1.25rem;
+        padding: 1.25rem 1.5rem;
+        text-align: center;
+      }
+      .about-intro {
+        max-width: 600px;
+        margin: 0 auto 1.25rem;
+        color: var(--text-secondary);
+        line-height: 1.75;
+      }
+      .contact-title {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 0 0 0.45rem;
+        font-size: 1.35rem;
+        font-weight: 700;
+      }
+      .contact-icon {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 auto;
+      }
+      .contact-copy {
+        margin: 0 auto 0.75rem;
+        color: var(--text-muted);
+      }
+      .qrcode-placeholder {
+        width: 168px;
+        background: #fff;
+        border-radius: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0.75rem auto 0.75rem;
+        padding: 10px 10px 8px;
+        border: 1px solid var(--border-light);
+      }
+      .qrcode-placeholder img {
+        width: 140px;
+        height: 140px;
+        display: block;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+      }
+      .qrcode-placeholder span {
+        margin-top: 6px;
+        display: block;
+        color: var(--accent-dark);
+        font-size: 0.9rem;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+      .contact-email {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-top: 0.25rem;
+        color: var(--text-secondary);
+      }
+      .contact-email svg {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
+      }
+      .footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        border-top: 1px solid var(--border-light);
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 1.25rem;
+        }
+        .navbar {
+          flex-direction: column;
+        }
+        .nav-links {
+          gap: 1rem;
+        }
+        .hero-greeting {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo" id="logo-home">彭文辉</div>
+        <ul class="nav-links">
+          <li><a href="#experience" data-page="experience">经历</a></li>
+          <li><a href="#projects" data-page="projects">项目</a></li>
+          <li><a href="#blog" data-page="blog">Blog</a></li>
+          <li><a href="#about" data-page="about">关于我</a></li>
+        </ul>
+      </nav>
+
+      <!-- 首页内容 -->
+      <div id="home-page" class="content-pane active-pane">
+        <div class="hero">
+          <h1 class="hero-greeting">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <circle cx="12" cy="12" r="10" fill="#3b82f6" />
+              <path d="M8 10a4 4 0 1 1 8 0v2a4 4 0 1 1-8 0v-2z" fill="#fff" />
+              <circle cx="9" cy="10" r="1" fill="#3b82f6" />
+              <circle cx="15" cy="10" r="1" fill="#3b82f6" />
+            </svg>
+            你好，欢迎来到我的主页
+          </h1>
+          <div class="hero-desc">
+            <p>
+              我是产品经理，这个网页是我用来分享过往和思考，<br />希望你能在此有所收获。
+            </p>
+          </div>
+        </div>
+
+        <div class="two-cols">
+          <div class="col-link" data-nav="projects">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 6px"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2" fill="#2563eb" />
+              <rect x="7" y="9" width="10" height="6" rx="1" fill="#fff" />
+            </svg>
+            我的项目
+          </div>
+          <div class="col-link" data-nav="blog">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 6px"
+            >
+              <rect x="4" y="4" width="16" height="16" rx="2" fill="#2563eb" />
+              <rect x="7" y="7" width="10" height="2" rx="1" fill="#fff" />
+              <rect x="7" y="11" width="10" height="2" rx="1" fill="#fff" />
+              <rect x="7" y="15" width="6" height="2" rx="1" fill="#fff" />
+            </svg>
+            我的Blog
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h2>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 6px"
+            >
+              <path
+                d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91l-5-3.64 5.91-.91z"
+                fill="#f59e42"
+              />
+            </svg>
+            我的经历
+          </h2>
+        </div>
+        <div class="cards-grid">
+          <div class="project-card">
+            <h3>智慧物联软件产品</h3>
+            <p>负责智慧物联平台、客户及设备端软件的产品工作</p>
+            <a class="card-link" data-nav="projects">More detail →</a>
+          </div>
+          <div class="project-card">
+            <h3>信用贷款产品</h3>
+            <p>负责客户端迭代工作</p>
+            <a class="card-link" data-nav="projects">More detail →</a>
+          </div>
+          <div class="project-card">
+            <h3>人力资源平台产品</h3>
+            <p>负责HR管理系统，人才简历管理盒子</p>
+            <a class="card-link" data-nav="projects">More detail →</a>
+          </div>
+        </div>
+
+        <div class="section-header" hidden>
+          <h2>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 6px"
+            >
+              <circle cx="12" cy="12" r="10" fill="#2563eb" />
+              <rect x="11" y="6" width="2" height="8" rx="1" fill="#fff" />
+              <rect x="11" y="15" width="2" height="2" rx="1" fill="#fff" />
+            </svg>
+            最近的经历
+          </h2>
+        </div>
+        <div class="recent-list" hidden>
+          <span class="recent-item">智慧物联软件产品 · 平台与设备端</span>
+          <span class="recent-item">信用贷款产品 · 客户端迭代</span>
+          <span class="recent-item"
+            >人力资源平台 · HR管理系统 & 简历管理盒子</span
+          >
+        </div>
+      </div>
+
+      <!-- 经历页面（完整履历） -->
+      <div id="experience-page" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2" fill="#2563eb" />
+              <rect x="7" y="9" width="10" height="6" rx="1" fill="#fff" />
+            </svg>
+            职业经历
+          </h1>
+          <p style="color: var(--text-muted)">
+            历任智慧物联、消费信贷、人力资源 SaaS 等产品岗位，具备千万级 C
+            端用户与大型项目交付经验；擅长需求统筹、跨部门协同与数据驱动迭代。
+          </p>
+        </div>
+        <div class="timeline">
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-company">瑞为信息技术股份有限公司</span
+              ><span class="exp-meta">2020.06 – 至今 · 软件产品负责人</span>
+            </div>
+            <div class="exp-details">
+              <ul>
+                <li>
+                  负责智慧物联平台与设备软件产品工作，根据市场需求输出整体产品解决方案，与售后部门配合完成需求与项目交付落地。
+                  熟悉智慧物联业务链路：设备应用、IoT
+                  平台、业务平台与数据中心各系统交互；涵盖设备监控、数据上报、平台业务处理、汇总统计、参数下发、设备升级控制等；了解
+                  AI
+                  算法与大模型在业务中的应用；熟悉与合作伙伴的系统与数据对接。
+                </li>
+                <li>
+                  与硬件开发紧密配合，熟悉硬件开发流程，在工程验证阶段介入功能验证，降低开模后方案调整风险。设备侧涉及视觉算法、指密卡、毫米波等方案；场景覆盖智慧园区、智慧租住、智慧养老等。
+                </li>
+              </ul>
+              <div class="highlight">✨ 业绩亮点：业务量年均产值约2千万元</div>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-company">小花网络科技有限公司</span
+              ><span class="exp-meta">2017.08 – 2020.06 · 高级产品经理</span>
+            </div>
+            <div class="exp-details">
+              <ul>
+                <li>
+                  负责消费信贷客户端与资金对接，面向工薪阶层借贷业务；熟悉资金对接与放贷相关系统。高峰期日放款约
+                  4 千万，日新增用户 4–5 万，累计用户约 3 千万。
+                </li>
+                <li>
+                  资金对接：接入麻袋资金，完成从参与到助贷的合规调整；主导需求与研发落地，对接用户、审批、合同、账务、支付等多系统，约
+                  2
+                  个月上线。后续接入海尔消费、马上消费等资金方，完成全流程设计与协同。
+                </li>
+                <li>
+                  客户端迭代：统筹运营、商务、风控、研发等需求，推进安卓与 iOS
+                  版本迭代（指还王、小花钱包等）
+                </li>
+                <li>
+                  运营支持：渠道管理、用户促动（优惠券/红包）、消息推送与广告配置；千人千面被拒用户导流排序规则等。
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-company">深圳八爪网络科技有限公司</span
+              ><span class="exp-meta">2016.07 – 2017.08 · 产品经理</span>
+            </div>
+            <div class="exp-details">
+              <ul>
+                <li>
+                  猎头职位订单众包平台，服务猎头与 HR
+                  双角色：订单发布、推荐人才、筛选、面试、offer、入职及佣金结算。
+                </li>
+                <li>搭建会员积分体系，完成获取与消耗积分全流程。</li>
+                <li>
+                  八爪盒子创新项目：以存储与找人为切入点，支持简历共享检索、申请分享；涉及
+                  IM、搜索体验与分享规则。
+                </li>
+                <li>
+                  人才数据管理：简历入库解析、模块化数据与人才标签，用于职位推送与相似人才推荐。
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-company">深圳助学乐网络科技有限公司</span
+              ><span class="exp-meta">2015.12 – 2016.07 · 产品经理</span>
+            </div>
+            <div class="exp-details">
+              <ul>
+                <li>
+                  培训机构学员融资平台，资金端华众理财，资产端教育机构学员；上线当月进件破百万目标
+                </li>
+                <li>从 0 到 1 搭建助学乐资产端体系。</li>
+                <li>
+                  审批后台：机构审核线上流程、课程商品上下架、学员进件审批。
+                </li>
+                <li>客户端进件：课程商品入口与分期进件流程。</li>
+                <li>资金账户：学员与机构双体系，对接第三方支付。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-company">芒果网有限公司</span
+              ><span class="exp-meta">2014.12 – 2015.12 · 产品经理</span>
+            </div>
+            <div class="exp-details">
+              <ul>
+                <li>
+                  在线旅游产品，负责运营推广支持：搭建
+                  CMS、输出前端页面与推广载体；对接深圳热线/深圳之窗等媒体渠道，将旅游产品嵌入资讯类旅游频道。
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-company">500彩票网</span
+              ><span class="exp-meta">2013.07 – 2014.12 · 策划助理</span>
+            </div>
+            <div class="exp-details">
+              <ul>
+                <li>
+                  负责彩票资金数据后台，保障充值、订单、提款等金额一致；收集优化需求，协调研发排期与发布。
+                  主导派奖流程优化：梳理开奖后派奖链路，调整开奖源获取与比对策略，将竞彩派奖时间由约
+                  30s 降至约 5s。
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 项目详情页（完整案例） -->
+      <div id="projects-page" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <path
+                d="M12 2l2.09 6.26L20 9.27l-5 3.64L16.18 20 12 16.77 7.82 20 9 12.91l-5-3.64 5.91-.91z"
+                fill="#f59e42"
+              />
+            </svg>
+            核心项目案例
+          </h1>
+          <p style="color: var(--text-muted)">
+            智慧物联 · AI 落地 · 全场景实践
+          </p>
+        </div>
+        <div class="projects-grid">
+          <div class="project-detail-card">
+            <div class="project-header">
+              <h2>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style="vertical-align: middle; margin-right: 6px"
+                >
+                  <circle cx="12" cy="12" r="10" fill="#2563eb" />
+                  <rect x="7" y="8" width="10" height="6" rx="2" fill="#fff" />
+                  <rect
+                    x="10"
+                    y="6"
+                    width="4"
+                    height="2"
+                    rx="1"
+                    fill="#3b82f6"
+                  />
+                </svg>
+                北京地铁人员考勤系统
+              </h2>
+              <div class="project-meta">人脸识别 · 考勤管理</div>
+            </div>
+            <div class="project-content">
+              <div>
+                <strong>项目预期：</strong
+                >接入北京地铁内部系统数据，实现设备考勤打卡数据汇总与推送。；
+                <strong>项目难点：</strong
+                >客户要求实现人脸活体检测，设备为RGB摄像头，难以阻拦照片、视频非活体的验证通过；<strong>解决方案：</strong>开始通过调整算法阈值来控制，发现不管用；通过对线上的上报数据和设备日志，发现终端用户使用照片、A4和电脑视频文件一直持续的进行设备扫脸，时间可长达二十多分钟，持续扫脸的时间足够长，就存在通过的可能性，跟算法阈值无关；最后调整策略，平衡正常刷脸和照片刷脸的活体帧数检测的控制，将活体失败的帧数要求逐渐下降，同步做活体失败就必须挪动设备，解决持续扫脸的情况。
+              </div>
+              <div class="stats-row">
+                <span class="stat-item">设备500套 150w</span
+                ><span class="stat-item">手持1000套 60w</span
+                ><span class="stat-item">每年产品维保合同 13w</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-card">
+            <div class="project-header">
+              <h2>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style="vertical-align: middle; margin-right: 6px"
+                >
+                  <rect
+                    x="3"
+                    y="8"
+                    width="18"
+                    height="8"
+                    rx="4"
+                    fill="#f59e42"
+                  />
+                  <rect x="6" y="10" width="12" height="4" rx="2" fill="#fff" />
+                  <circle cx="7" cy="16" r="2" fill="#2563eb" />
+                  <circle cx="17" cy="16" r="2" fill="#2563eb" />
+                </svg>
+                日本出租车酒测项目
+              </h2>
+              <div class="project-meta">软硬一体 · 跨国交付</div>
+            </div>
+            <div class="project-content">
+              <p>
+                在出租车运营环节支持管理员对司机酒测监控，提供现场与远程两套方案，实现酒测线上化；落地人脸设备、安卓与
+                iOS
+                App、现场版与手持蓝牙版酒测设备、平台应用等多系统软硬一体化方案。
+              </p>
+              <p>
+                项目亮点：重点攻克蓝牙连接与酒测监控交互流程复杂问题，优化页面流程，使司机与管理员交互更顺畅；完成契合日本客户设备与
+                App 操作监控酒测的方案并促成下单。
+              </p>
+              <div class="stats-row">
+                <span class="stat-item">设备 500 套 150w</span
+                ><span class="stat-item">手持 1000 套 60w</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-card">
+            <div class="project-header">
+              <h2>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style="vertical-align: middle; margin-right: 6px"
+                >
+                  <rect
+                    x="4"
+                    y="6"
+                    width="16"
+                    height="12"
+                    rx="4"
+                    fill="#3b82f6"
+                  />
+                  <rect x="9" y="10" width="6" height="4" rx="2" fill="#fff" />
+                  <rect
+                    x="11"
+                    y="8"
+                    width="2"
+                    height="2"
+                    rx="1"
+                    fill="#2563eb"
+                  />
+                </svg>
+                智慧养老项目
+              </h2>
+              <div class="project-meta">毫米波雷达 · 跌倒监测</div>
+            </div>
+            <div class="project-content">
+              <p>
+                项目预期：使用低功率毫米波方案，实现人体姿态检测、呼吸心率监测、跌倒监测；通过
+                IoT
+                平台实现设备管控，业务平台实现监控与分析，为养老机构提供业务监控与数据分析能力。
+              </p>
+              <p>
+                项目亮点：作为项目owner，通过快速对接外部设备白牌，实现业务落地。在自家选型方向时，判定技术路线简单且容易被验证的功能进行MVP路径迭代。分析和产出产品的卖点，并将产品亮点及其方案同步给销售和其他团队。
+              </p>
+            </div>
+          </div>
+          <div class="project-detail-card">
+            <div class="project-header">
+              <h2>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style="vertical-align: middle; margin-right: 6px"
+                >
+                  <circle cx="12" cy="12" r="10" fill="#2563eb" />
+                  <rect x="9" y="7" width="6" height="10" rx="3" fill="#fff" />
+                  <rect
+                    x="11"
+                    y="9"
+                    width="2"
+                    height="6"
+                    rx="1"
+                    fill="#3b82f6"
+                  />
+                </svg>
+                企业AI大模型生产力提升
+              </h2>
+              <div class="project-meta">大模型 · 内部提效</div>
+            </div>
+            <div class="project-content">
+              项目预期：在瑞为内部开展拥抱AI，使用AI大模型提效生产力项目，预期在招聘、财务、CRM、人事、产研等部门达成生产力提升目标。
+              项目亮点： 1.快速在招聘领域达成招聘业务系统的搭建跑通；
+              2.产出插件，在各渠道网站捞人；
+              3.提供工具，方便财务日常产出报表，报表in，报表out。
+              4.产出问答agent，形成知识库
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 列表 -->
+      <div id="blog-page" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="vertical-align: middle; margin-right: 8px"
+            >
+              <rect x="4" y="4" width="16" height="16" rx="2" fill="#2563eb" />
+              <rect x="7" y="7" width="10" height="2" rx="1" fill="#fff" />
+              <rect x="7" y="11" width="10" height="2" rx="1" fill="#fff" />
+              <rect x="7" y="15" width="6" height="2" rx="1" fill="#fff" />
+            </svg>
+            我的Blog
+          </h1>
+          <p style="color: var(--text-muted)">产品思考 · 行业洞见 · 成长复盘</p>
+        </div>
+        <div class="posts-list">
+          <div class="post-item">
+            <span class="post-date">2026.03.15</span>
+            <a href="#" class="post-title" data-nav="blog-ai-tools"
+              >AI工具如何重塑产品经理工作流？</a
+            >
+          </div>
+          <div class="post-item">
+            <span class="post-date">2026.02.20</span>
+            <a href="#" class="post-title" data-nav="blog-smart-eldercare"
+              >从0到1搭建智慧养老平台——架构与复盘</a
+            >
+          </div>
+          <div class="post-item">
+            <span class="post-date">2026.01.10</span>
+            <a href="#" class="post-title" data-nav="blog-credit-user"
+              >理解信贷用户: 行为数据驱动体验升级</a
+            >
+          </div>
+          <div class="post-item">
+            <span class="post-date">2025.12.05</span>
+            <a href="#" class="post-title" data-nav="blog-hr-saas"
+              >HR SaaS 的未来趋势: 人才智能化管理</a
+            >
+          </div>
+        </div>
+        <div style="text-align: center">
+          <a href="#" class="card-link" style="cursor: default"
+            >查看全部文章 →</a
+          >
+        </div>
+      </div>
+
+      <div id="blog-ai-tools" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>AI工具如何重塑产品经理工作流？</h1>
+          <p class="article-meta">2026.03.15 · 产品思考 · AI · 工作流</p>
+        </div>
+        <div class="article-detail">
+          <div class="article-body">
+            <p>过去几年，AI 对产品经理的影响，已经从“辅助工具”逐渐演变成“工作流基础设施”。以前，产品经理的大量时间消耗在：</p>
+            <ul>
+              <li>写 PRD</li>
+              <li>做竞品调研</li>
+              <li>整理会议纪要</li>
+              <li>画原型</li>
+              <li>分析用户反馈</li>
+              <li>与研发反复沟通</li>
+              <li>数据归因分析</li>
+            </ul>
+            <p>而现在，越来越多团队开始意识到：AI 不只是提升效率，而是在重新定义“产品工作”本身。尤其是 2025 年之后，AI Agent、Copilot、自动化工作流的成熟，让产品经理从“执行协调者”，逐渐转向“问题定义者”和“决策设计者”。这篇文章，我会结合真实场景，聊聊 AI 是如何重塑产品工作流的。</p>
+            <h3>一、产品经理的工作，本质上是信息处理</h3>
+            <p>先看一个核心问题：产品经理每天到底在做什么？如果抽象一下，会发现本质是：收集信息 → 理解问题 → 做决策 → 推动协作。而 AI 最擅长的，恰恰就是：信息提取、内容生成、模式识别、自动归纳、多轮推理。所以 AI 与产品工作的结合，天然契合。过去产品经理像“人肉中间件”。现在 AI 正在接管大量“中间层工作”。</p>
+            <h3>二、AI 正在重构产品工作流的 6 个关键环节</h3>
+            <h3>1. 用户研究：从“人工整理”到“自动洞察”</h3>
+            <p>传统流程：以前做用户访谈：录音、转文字、手工整理、标注关键词、提炼需求、输出结论。一个 1 小时访谈，整理可能要 3 小时。而且最痛苦的是：信息很多，但真正的 insight 很少。</p>
+            <p>AI 重构后的流程：现在很多团队已经开始这样做：工作流 用户访谈录音 → AI 自动转写 → 自动提取情绪变化 → 聚类核心问题 → 自动生成用户画像 → 输出需求优先级建议。</p>
+            <p>实际案例：某跨境电商团队，每周有大量用户客服聊天记录。以前 PM 靠人工抽样。现在他们使用：OpenAI 的 GPT、Claude，自动分析：高频退款原因、用户情绪波动、哪些功能最容易引发投诉、哪类用户流失概率高。结果：原本需要 2 天的数据整理，现在缩短到 30 分钟。更重要的是：团队第一次能够“实时感知用户情绪”。</p>
+            <h3>2. PRD 写作：从“写文档”到“生成文档”</h3>
+            <p>传统 PRD 的问题：很多 PM 都有同感：写 PRD 很耗时间，但真正重要的不是“写”。而是：需求是否清晰、边界是否完整、逻辑是否闭环。AI 出现后，PRD 的价值链发生了变化。</p>
+            <p>AI 新工作流：现在成熟团队的方式通常是：产品经理输入：需求背景、用户目标、业务指标、功能约束。AI 自动生成：PRD 初稿、用户流程、异常分支、接口字段建议、埋点方案、测试 Case。</p>
+            <p>实际案例：某 SaaS 团队内部搭建了一个“PRD Copilot”。PM 只需要输入：“新增企业成员权限管理功能”，系统会自动生成：用户故事、权限矩阵、页面交互说明、API 字段建议、风险点。原来写 PRD 要 1 天。现在 30 分钟内可以完成第一版。产品经理开始把更多时间花在：商业策略、用户价值、优先级判断，而不是格式化文档。</p>
+            <h3>3. 原型设计：从“画页面”到“描述页面”</h3>
+            <p>这是变化最剧烈的部分之一。</p>
+            <p>以前，产品经理：画线框图、标注交互、与设计师反复沟通；设计师：再重新设计 UI。整个过程很长。</p>
+            <p>现在，AI 原型工具已经可以做到：输入一句话：“做一个类似飞书的任务管理页面”，直接生成：页面布局、UI 风格、组件结构、响应式方案。</p>
+            <p>实际案例：很多团队开始使用：Figma AI、v0 by Vercel。尤其是 v0。很多 PM 已经不是“画原型”。而是：用自然语言生成前端页面。甚至部分团队：AI 出原型、AI 出 React 页面、前端只负责工程化。产品到上线的距离，被极度压缩。</p>
+            <h3>4. 数据分析：从“看报表”到“AI 问答”</h3>
+            <p>传统数据分析有个问题：PM 不会 SQL。即便会：取数慢、分析周期长、依赖数据团队。</p>
+            <p>AI 改变之后：现在越来越多 BI 工具开始支持自然语言查询数据。例如：“最近 7 天为什么支付转化率下降？”AI 会自动：分析漏斗、查找异常点、对比历史周期、输出原因猜测。</p>
+            <p>实际案例：某内容平台接入 AI 数据分析助手后，运营直接提问：“为什么昨天 DAU 下跌？”AI 自动发现：某安卓版本崩溃率升高、导致启动失败、集中在日本地区。以前：这个分析可能需要：产品 + 数据 + 客户端工程师一起排查。现在几分钟就能定位。</p>
+            <h3>5. 研发协同：从“翻译需求”到“共享上下文”</h3>
+            <p>以前产品经理有一个隐形工作：在业务语言和技术语言之间反复翻译。现在 AI 开始承担这部分。</p>
+            <p>实际变化：AI 可以自动：将 PRD 转技术任务、生成接口文档、输出测试用例、识别需求冲突、自动补全边界条件。实际案例：很多团队已经在使用：Cursor、GitHub Copilot。例如：AI 自动：拆解研发任务、估算复杂度、推荐相关历史需求、提醒潜在风险。研发沟通成本明显下降。</p>
+            <h3>6. AI Agent：产品工作流进入“自动执行时代”</h3>
+            <p>这是未来两年最大的变化。以前 AI 是“助手”。现在 AI 开始变成：可以自主执行任务的 Agent。</p>
+            <p>什么是 Agent？简单理解：它不仅能回答问题。还能：调用工具、自动执行流程、完成长链路任务。</p>
+            <p>实际案例：某增长团队已经开始使用 AI Agent：目标：“提升新用户次留”。</p>
+            <h3>5. 真正的变化，不是效率提升，而是组织结构改变</h3>
+            <p>很多人低估了 AI 的影响。以为只是：“写 PRD 更快了”。但实际上：AI 改变的是：整个产品组织的协作结构。未来可能出现：</p>
+            <ul>
+              <li>一个 PM + AI = 一个小团队</li>
+              <li>小团队完成过去大团队工作</li>
+              <li>产品、设计、研发边界进一步模糊</li>
+              <li>“全栈型产品经理”崛起</li>
+            </ul>
+            <p>甚至：很多 MVP 产品，可能 1~2 个人就能完成。</p>
+            <h3>6. 结语</h3>
+            <p>AI 对产品工作的影响，才刚刚开始。它并不是简单的“效率工具”。而是在重构：产品工作流、团队协作模式、组织结构、产品经理的核心能力。未来最危险的，不是“不会 AI”。而是：仍然用旧时代的方法做产品。真正值得关注的问题已经不是：“AI 会不会替代产品经理？”而是：“懂 AI 的产品经理，会不会替代不懂 AI 的产品经理？”。</p>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <a href="#" class="card-link" data-nav="blog">← 返回文章列表</a>
+        </div>
+      </div>
+
+      <div id="blog-smart-eldercare" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>从0到1搭建智慧养老平台——架构与复盘</h1>
+          <p class="article-meta">2026.02.20 · 养老产品 · 架构 · 运营</p>
+        </div>
+        <div class="article-detail">
+          <div class="article-body">
+            <p>这几年，“智慧养老”几乎成了数字化领域最容易被高估、也最容易被做偏的方向之一。很多项目一开始目标都很宏大：AI 看护、IoT 智能监测、健康预警、社区联动、医养结合、大数据平台。但真正落地后，往往会遇到：老人不会用、设备联网不稳定、数据孤岛严重、医疗资源接不进去、运营成本极高、平台没人持续使用。</p>
+            <p>我曾参与过一个智慧养老平台从 0 到 1 的搭建过程。项目经历了：从 PPT 到落地、从 1 个街道试点到多社区推广、从“功能导向”转向“服务导向”、从“平台思维”转向“运营闭环”。这篇文章，我想结合真实经验，聊聊：一个智慧养老平台，究竟应该怎么搭建？以及：为什么很多智慧养老项目，最后都“死在上线之后”？</p>
+            <h3>一、为什么智慧养老难做？</h3>
+            <p>先说一个很现实的问题：智慧养老并不是一个“纯互联网产品”。它本质上是：“线下服务 + 医疗资源 + 政务协同 + 家庭关系”的复杂系统。所以它最大的难点，从来不是技术。而是：多角色协同、长周期运营、用户习惯改造、线下履约能力。</p>
+            <p>很多团队一上来就想着：“做一个 APP”。但后来发现：真正高频使用 APP 的，往往不是老人。而是：子女、社区工作人员、护工、医生、运营人员。这直接决定了：智慧养老平台不是单端产品，而是多角色系统。</p>
+            <h3>二、项目背景：我们当时要解决什么问题？</h3>
+            <p>项目最初来自一个社区养老试点。目标很明确：解决“独居老人”的安全与服务问题。核心场景包括：老人跌倒无人发现、慢病数据无法持续跟踪、社区服务响应慢、子女异地无法了解情况、紧急呼叫流程复杂。所以平台的核心目标并不是“智能”。而是：建立一个真正可运转的养老服务闭环。</p>
+            <h3>三、从0到1：智慧养老平台的核心架构</h3>
+            <p>整个系统，最终拆成了 5 层。</p>
+            <h3>1. 用户层：不是一个用户，而是五类用户</h3>
+            <p>这是很多团队最容易忽略的问题。智慧养老不是单用户产品。至少会有：</p>
+            <ul>
+              <li>老人：简单、可靠、安全</li>
+              <li>子女：实时了解老人状态</li>
+              <li>社区：管理老人档案</li>
+              <li>医护人员：健康数据追踪</li>
+              <li>平台运营：服务调度与统计</li>
+            </ul>
+            <p>因此：不同角色必须使用不同系统。</p>
+            <h3>我们最终采用的方案</h3>
+            <p>老人端尽量“去 APP 化”。因为很多老人：不会下载、不会更新、不会登录。最后采用：大屏设备、微信小程序、一键呼叫设备、语音交互。核心原则：降低学习成本。</p>
+            <p>子女端重点不是功能多。而是：是否安心、是否及时、是否可查看。核心功能：健康日报、异常提醒、视频查看、服务记录。</p>
+            <p>社区运营后台这是最核心的一层。因为真正决定平台能否跑起来的：不是用户数量。而是：社区人员是否愿意持续使用。后台重点包括：老人档案、工单系统、服务调度、风险预警、回访管理。</p>
+            <h3>四、系统架构设计：为什么我们采用“中台化”</h3>
+            <p>平台初期，很多人建议：“先把功能做出来”。但后来发现：智慧养老的需求变化极快。例如：不同社区服务不同、不同街道政策不同、不同设备协议不同。如果前期不做抽象，后期几乎必然重构。</p>
+            <p>最终采用的架构我们把系统拆成：用户中心、健康中台、IoT 中台、工单中台、消息中心、数据平台。</p>
+            <h3>五、最难的一部分：IoT 设备接入</h3>
+            <p>智慧养老一定绕不开设备。包括：血压计、心率设备、床垫传感器、跌倒检测、SOS 呼叫器、智能手环。问题是：不同厂商协议完全不同。这是项目初期踩坑最多的地方。</p>
+            <p>我们踩过的坑：1. 设备离线严重。老人家里：Wi-Fi 不稳定、经常断电、路由器不会重连，导致后台大量设备“失联”。</p>
+            <p>后来怎么解决？改成：4G 设备优先、本地缓存机制、心跳检测、自动重连。同时：建立“设备健康监控平台”。因为后来发现：维护设备，比开发系统更耗成本。</p>
+            <h3>六、AI 在智慧养老中的真正价值</h3>
+            <p>很多人以为：智慧养老的 AI 核心是“聊天机器人”。实际上并不是。真正有价值的是：风险预测。</p>
+            <p>我们后来重点做的 AI 能力有：</p>
+            <ul>
+              <li>异常行为识别：老人连续 12 小时未活动、夜间频繁离床、心率异常波动、多天未出门，系统自动预警。</li>
+              <li>服务推荐：基于年龄、慢病、活跃度、历史服务，自动推荐上门护理、康复训练、社区活动。</li>
+              <li>智能工单分派：以前靠人工派单。后来 AI 根据距离、服务能力、历史评分、响应时长自动推荐服务人员。整体效率提升明显。</li>
+            </ul>
+            <h3>七、真正决定成败的，不是技术，而是运营</h3>
+            <p>这是整个项目最大的复盘。项目初期的错误：一开始团队认为：“功能上线后，用户自然会用。”结果：老人不会用。社区懒得录数据。护工不愿更新工单。平台活跃度极低。</p>
+            <p>后来我们意识到：智慧养老本质上是：一个“重运营”项目。所以后面重点开始转向：社区培训、上门指导、护工激励、服务标准化、用户回访。平台数据才真正跑起来。</p>
+            <h3>八、为什么很多智慧养老平台会失败？</h3>
+            <p>复盘下来，常见问题有 5 个。</p>
+            <ul>
+              <li>技术导向太重：很多项目：大模型、AI、数字人、元宇宙全都上。但老人真正需要的是：能联系到人、能及时响应、能解决问题。</li>
+              <li>忽略线下履约：平台可以接单，但没人服务。最后用户体验会迅速崩掉。</li>
+              <li>过度依赖 APP：老人端越复杂，越没人用。后来我们发现：很多时候：“一个红色 SOS 按钮”比 20 个功能更重要。</li>
+              <li>缺少持续运营：智慧养老不是一次性交付，而是长期服务体系。没有运营，系统很快变“死平台”。</li>
+              <li>数据没有真正闭环：很多平台采集了大量数据。但：没有分析、没有干预、没有服务联动。数据最终变成“摆设”。</li>
+            </ul>
+            <h3>九、如果重新再做一次，我会怎么做？</h3>
+            <p>如果今天重新从 0 到 1 做智慧养老。我会优先做三件事：</p>
+            <ul>
+              <li>先做服务闭环，再做平台：不要一开始就“大而全”。先验证：服务是否真实存在、响应链路是否可跑通、用户是否愿意持续使用。</li>
+              <li>优先解决“高频刚需”：例如：紧急呼叫、用药提醒、健康异常预警，而不是先做“AI 陪聊”。</li>
+              <li>AI 聚焦“风险预测”：真正有价值的 AI 不是炫技，而是提前发现风险。例如：跌倒风险、慢病恶化、孤独倾向、异常行为。这才是智慧养老真正的价值。</li>
+            </ul>
+            <h3>十、结语</h3>
+            <p>智慧养老不是一个“互联网创业故事”。它更像：一个长期、复杂、重服务的社会工程。它需要的：不仅是技术。更是：医疗资源、社区协同、服务体系、长期运营能力。但它又确实是一个非常值得投入的方向。因为随着老龄化加速：未来十年，智慧养老一定会成为数字化领域最重要的基础设施之一。而真正能活下来的平台，往往不是“技术最先进”的。而是：最懂老人真实需求的。</p>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <a href="#" class="card-link" data-nav="blog">← 返回文章列表</a>
+        </div>
+      </div>
+
+      <div id="blog-credit-user" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>理解信贷用户：行为数据驱动体验升级</h1>
+          <p class="article-meta">
+            2026.01.10 · 金融产品 · 用户体验 · 数据洞察
+          </p>
+        </div>
+        <div class="article-detail">
+          <div class="article-body">
+            <p>在信贷行业里，很多团队一直有一个误区：认为“风控”才是核心。但随着市场逐渐成熟，越来越多机构开始意识到：真正决定用户留存和业务增长的，往往不是额度，而是体验。尤其是在互联网信贷进入精细化运营阶段后：获客成本越来越高、用户生命周期越来越短、产品同质化越来越严重。单纯依靠：更高额度、更低利率、更快放款已经很难建立长期竞争力。于是，一个新的问题开始出现：我们真的理解信贷用户吗？而行为数据，正在成为答案的核心。</p>
+            <h3>一、为什么“理解用户”在信贷行业特别难？</h3>
+            <p>相比电商、内容平台、社交产品，信贷用户有几个非常特殊的特点：</p>
+            <h3>1. 用户天然敏感</h3>
+            <p>用户在申请贷款时，往往伴随着：资金压力、风险焦虑、隐私顾虑、征信担忧。所以：他们的行为会比普通互联网产品更加谨慎。一个按钮文案，都可能影响转化。</p>
+            <h3>2. 用户行为具有“强阶段性”</h3>
+            <p>信贷用户并不是持续活跃用户。而是：借前、借中、借后。行为完全不同。例如：</p>
+            <ul>
+              <li>借前用户关注：能不能过、利率高不高、是否查征信</li>
+              <li>借中用户关注：放款速度、还款方式、额度变化</li>
+              <li>借后用户则更关心：是否提额、是否影响征信、还能不能再借</li>
+            </ul>
+            <p>所以：信贷产品不能只看“用户画像”，更要看“行为阶段”。</p>
+            <h3>二、传统信贷产品的问题：只有风控视角，没有用户视角</h3>
+            <p>很多信贷系统的数据建设，其实非常完善。但问题在于：数据几乎全部围绕：风险、欺诈、资金、催收展开。而真正与“体验”相关的数据，却长期被忽略。例如：用户为什么中途退出？为什么用户反复查看额度？为什么大量用户停留在身份认证页面？为什么用户放款后不再打开 APP？这些行为背后，其实藏着大量体验问题。</p>
+            <h3>三、行为数据，如何真正驱动体验升级？</h3>
+            <p>在我们做某消费金融产品时，曾重点做过一次“用户行为分析体系”的重构。最大的变化是：从“结果数据”转向“过程数据”。以前只看：转化率、放款率、逾期率。后来开始看：页面停留时长、点击路径、输入中断率、表单修改次数、返回操作频率、夜间操作比例。结果发现：很多问题，并不在风控。而在体验。</p>
+            <h3>四、一个真实案例：身份认证环节的流失分析</h3>
+            <p>当时平台有一个问题：实名认证阶段流失率非常高。最开始团队怀疑：用户资质不好、风控拦截过严。但行为数据分析后发现：真正的问题是：用户“害怕”。</p>
+            <p>数据表现：我们发现大量用户会：在上传身份证页面停留很久、频繁点击“返回”、多次查看“为什么需要身份证”、在“人脸识别”阶段退出。尤其是夜间用户，退出率更高。</p>
+            <p>后来怎么优化？我们做了几件小事：</p>
+            <ul>
+              <li>增加“用途解释”：把原来的“请上传身份证”改成“仅用于身份核验，不会泄露个人信息”。</li>
+              <li>增加进度反馈：用户知道：自己已经完成了多少步骤。焦虑明显下降。</li>
+              <li>降低人脸识别失败率：以前失败后直接报错。后来改成：光线提醒、动作引导、自动重试。转化率明显提升。</li>
+            </ul>
+            <p>最终结果：实名认证完成率提升了 18%。但风控规则几乎没变。这件事让团队意识到：很多所谓“风险问题”，本质上是体验问题。</p>
+            <blockquote>很多所谓“风险问题”，本质上是体验问题。</blockquote>
+            <h3>五、信贷产品真正重要的，不只是“通过率”</h3>
+            <p>很多团队特别关注：审批通过率、放款速度。但忽略了一个问题：用户是否真正“安心”。这是信贷产品和普通互联网产品最大的区别。</p>
+            <p>为什么“安心感”重要？因为用户在借贷过程中，天然存在不确定性。例如：会不会套路？利率会不会变？会不会影响征信？会不会被骚扰？会不会乱收费？所以：用户行为里大量“重复确认动作”，其实是在寻找安全感。</p>
+            <p>一个典型行为：我们曾发现：很多用户在提交借款前，会反复查看：还款计划、综合年化利率、提前还款规则。这意味着：用户真正担心的，不是“借不到”。而是：“借了以后会不会出问题”。</p>
+            <h3>六、行为数据最大的价值：预测用户情绪</h3>
+            <p>很多人理解行为数据，只停留在：“用户点了什么”。但实际上：行为数据真正厉害的地方在于：它可以反映用户情绪。例如：</p>
+            <ul>
+              <li>高频返回可能代表：不理解、不信任、犹豫</li>
+              <li>长时间停留可能意味着：信息复杂、用户焦虑、决策困难</li>
+              <li>深夜申请很多时候意味着：资金压力更强、决策更冲动、风险敏感度更低</li>
+              <li>频繁查看额度可能代表：用户存在潜在资金需求、但尚未建立信任</li>
+            </ul>
+            <p>这些行为，其实都是产品优化的重要信号。</p>
+            <h3>七、AI 正在改变信贷用户洞察方式</h3>
+            <p>以前的数据分析：更多是：SQL、报表、人工分析。现在越来越多机构开始使用 AI：自动识别行为模式。例如：AI 可以自动发现：哪类用户更容易中途退出、哪个页面最容易引发焦虑、哪类文案提升转化、哪种流程最影响信任感。甚至：AI 可以动态调整页面体验。</p>
+            <p>一个典型方向：实时个性化体验。例如：如果系统识别用户：多次查看利率、停留时间长、频繁返回，系统会自动：展示费用说明、增加风险提示解释、提供人工客服入口。本质上：从“统一流程”变成“动态体验”。</p>
+            <h3>八、未来的信贷产品，不只是金融系统，而是“用户决策系统”</h3>
+            <p>这是我认为未来最大的变化。过去的信贷产品：核心目标是：放款、控制风险。未来则会变成：帮助用户完成金融决策。这意味着：产品不仅要：能借、能还，更要：能理解用户、降低焦虑、建立信任、提供透明感。而行为数据，会成为这一切的基础。</p>
+            <h3>九、几个关键复盘</h3>
+            <p>在做完整个行为数据体系后，我们最大的几个认知变化：</p>
+            <ul>
+              <li>用户流失，不一定是额度问题。很多时候：是信任问题。</li>
+              <li>风控和体验并不冲突。好的体验，反而会提升真实用户转化。</li>
+              <li>数据不能只服务“风险”，还应该服务：理解用户、优化体验、提升信任。</li>
+              <li>用户行为，本质上是情绪表达。产品团队真正应该关注的：不是点击量。而是：用户为什么这样点击。</li>
+            </ul>
+            <h3>十、结语</h3>
+            <p>信贷行业正在进入一个新的阶段。过去拼的是：流量、额度、放款速度。未来拼的，会越来越是：谁更懂用户。而真正理解用户，不能只靠画像。更要靠：行为数据、场景理解、情绪洞察、长期体验优化。因为信贷产品最终竞争的，并不只是资金能力。而是：用户是否愿意信任你。</p>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <a href="#" class="card-link" data-nav="blog">← 返回文章列表</a>
+        </div>
+      </div>
+
+      <div id="blog-hr-saas" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>HR招聘 SaaS 的未来趋势：人才智能化管理</h1>
+          <p class="article-meta">2025.12.05 · HR SaaS · 人才智能化 · AI</p>
+        </div>
+        <div class="article-detail">
+          <div class="article-body">
+            <p>过去十年，HR SaaS 的核心价值主要集中在：在线招聘、简历管理、面试协同、组织管理、考勤绩效。本质上是“流程数字化”。但随着大模型（LLM）与 AI Agent 的快速发展，HR SaaS 正在进入一个新的阶段：从“流程管理工具”进化为“人才智能化管理平台”。这意味着：未来的 HR 系统，不再只是一个 ATS（Applicant Tracking System）。而会逐渐变成：招聘助手、面试官助手、人才分析师、组织顾问、AI Recruiter。甚至：部分招聘流程，将由 AI 自动完成。这篇文章，我们聊聊：大模型如何重构 HR 招聘 SaaS 的各个场景？以及：人才智能化管理，未来会走向哪里？</p>
+            <h3>一、传统 HR SaaS 的瓶颈：系统很多，但“智能”很少</h3>
+            <p>很多 HR SaaS 平台，虽然已经实现了流程在线化。但实际体验依然存在很多问题：</p>
+            <ul>
+              <li>招聘效率低：HR 每天仍然需要手动筛选简历、重复沟通候选人、安排面试、记录反馈、汇总评估，大量时间消耗在重复劳动。</li>
+              <li>人岗匹配依赖经验：很多岗位是否合适，依然靠 HR 或业务面试官“感觉”。导致：错误招聘、人才错配、高离职率。</li>
+              <li>数据很多，但洞察很少：企业拥有：简历数据、面试数据、绩效数据、离职数据，但这些数据长期割裂。无法形成真正的人才洞察。</li>
+              <li>招聘体验差：候选人经常会遇到：回复慢、流程长、JD 模糊、面试体验不一致。最终影响雇主品牌。</li>
+            </ul>
+            <h3>二、大模型正在改变 HR SaaS 的底层逻辑</h3>
+            <p>过去的 HR 系统：核心是“记录”。现在的大模型时代：核心变成了：“理解”。因为大模型最强的能力之一：就是处理非结构化信息。而 HR 场景中：大量核心数据本来就是非结构化的。例如：简历、面试评价、沟通记录、JD、人才画像、候选人表达。这恰好是 LLM 最适合发挥价值的领域。</p>
+            <h3>三、大模型在招聘场景中的核心应用</h3>
+            <p>接下来，我们从招聘全链路来看。</p>
+            <h3>1. JD 生成：从“写岗位”到“定义人才”</h3>
+            <p>很多 HR 写 JD 时会遇到：描述模糊、要求堆砌、岗位画像不清晰。结果导致：投递不精准、候选人理解偏差、招聘效率低。</p>
+            <p>大模型怎么做？现在 AI 可以基于：公司业务、团队结构、历史优秀员工画像、行业岗位数据自动生成：JD、能力模型、面试维度、薪资建议。</p>
+            <p>实际变化：以前：HR 写 JD。未来：AI 先生成，HR 负责调整。</p>
+            <p>一个典型案例：例如招聘“高级产品经理”。AI 不只是输出：“3 年以上经验”。而会结合：行业阶段、团队规模、产品复杂度生成更具体的画像：“具备从0到1能力，熟悉 AI Agent 产品设计，有跨团队协同经验。”JD 开始从“模板化”变成“智能化”。</p>
+            <h3>2. AI 简历筛选：从关键词匹配到语义理解</h3>
+            <p>传统 ATS 最大的问题：是关键词匹配。例如：候选人写：“负责增长策略”。系统可能识别不到：“用户增长”。</p>
+            <p>大模型的变化：LLM 可以真正理解：技能相似性、经验迁移能力、项目复杂度、岗位匹配度。例如：候选人虽然没写“AI 产品经理”，但做过：NLP、推荐系统、数据平台。AI 可以识别其潜在匹配性。</p>
+            <p>更重要的是：AI 不只是筛选。还能解释：“为什么推荐这个人”。例如：项目经历高度相关、有类似业务阶段经验、团队管理经验匹配。招聘透明度提升明显。</p>
+            <h3>3. AI 面试助手：重构面试过程</h3>
+            <p>这是未来变化最大的场景之一。</p>
+            <p>当前面试的问题：很多面试严重依赖面试官能力。存在：问题重复、评价主观、标准不一致、记录缺失。</p>
+            <p>AI 面试助手怎么做？AI 可以：自动生成面试问题、动态追问、实时记录、总结候选人表达、提取风险点、生成评估报告。</p>
+            <p>一个真实趋势：越来越多公司开始使用：AI 实时转写 + 面试总结。面试结束后：系统自动生成：候选人优势、风险点、能力雷达图、与岗位匹配分析。原本需要 30 分钟整理反馈。现在几分钟完成。</p>
+            <h3>4. AI 招聘机器人：候选人沟通自动化</h3>
+            <p>招聘中最耗时间的环节之一：是沟通。例如：邀约、跟进、时间确认、FAQ、Offer 解释。很多内容高度重复。</p>
+            <p>AI Recruiter 的出现：未来很多初级招聘沟通，会由 AI 完成。例如：AI 可以：自动邀约、自动安排时间、回答候选人问题、根据候选人背景推荐岗位。甚至：支持多语言沟通。</p>
+            <p>一个典型场景：候选人晚上 11 点咨询：“这个岗位支持 remote 吗？”AI 可以实时回复。而不是等第二天 HR 上班。招聘响应效率会被极大提升。</p>
+            <h3>5. AI 人才画像：真正的人才智能化</h3>
+            <p>这是未来 HR SaaS 最核心的方向。</p>
+            <p>过去的人才画像通常只有：学历、工作经历、技能标签，非常静态。</p>
+            <p>未来的人才画像：AI 会建立：动态人才模型。不仅分析：技能、项目，还会分析：沟通风格、学习能力、稳定性、成长潜力、协作能力。甚至：预测：是否容易离职、是否适合管理岗、是否适合创业团队。</p>
+            <h3>四、AI Agent：招聘流程进入“自动执行时代”</h3>
+            <p>这是未来 3 年最大的变化。</p>
+            <p>什么是 AI 招聘 Agent？简单理解：它不是聊天机器人。而是：能自主完成招聘任务的 AI。例如：输入一句：“帮我招一个 AI 产品经理。”Agent 自动：生成 JD、搜索人才库、推荐候选人、发起沟通、安排面试、汇总反馈、输出建议。HR 开始从：“执行者”变成：“决策者”。</p>
+            <h3>五、未来 HR SaaS 的核心竞争力会发生变化</h3>
+            <p>过去拼的是：功能数量、流程完整性、系统稳定性。未来拼的，会越来越是：</p>
+            <ul>
+              <li>数据能力：谁拥有：更多人才数据、更完整组织数据、更长期行为数据，谁就更容易训练人才模型。</li>
+              <li>AI 能力：未来 HR SaaS 本质上会变成：AI + 数据平台。</li>
+              <li>人才知识库：例如：企业自己的面试题库、人才画像、优秀员工模型、组织文化数据会成为新的核心资产。</li>
+            </ul>
+            <h3>六、但 AI 不会完全替代 HR</h3>
+            <p>很多人会问：AI 会不会取代招聘？我的判断是：不会完全替代。但会重构 HR 的工作方式。</p>
+            <p>AI 很强，但它仍然缺少：情绪理解、文化判断、深层沟通、组织感知。例如：一个候选人是否真正适合团队文化。很多时候：依然需要人判断。</p>
+            <h3>七、未来 HR 的角色，也会改变</h3>
+            <p>未来优秀 HR 的核心能力，不再只是：招聘流程、面试安排。而是：</p>
+            <ul>
+              <li>人才洞察能力：真正理解：什么人适合组织、什么人有成长潜力。</li>
+              <li>AI 协作能力：会不会：使用 AI、训练 AI、管理 Agent、构建招聘工作流，会成为核心竞争力。</li>
+              <li>组织设计能力：未来 AI 可以帮你“招人”。但：如何设计组织，依然是人的能力。</li>
+            </ul>
+            <h3>八、一个重要趋势：HR SaaS 正在从“工具”变成“人才操作系统”</h3>
+            <p>这是我认为未来最值得关注的方向。过去：HR SaaS 是：招聘工具、考勤工具、绩效工具。未来：它会变成：企业的人才操作系统（Talent OS）。连接：招聘、绩效、学习、晋升、组织发展。最终形成：完整的人才生命周期管理。而 AI，会成为这个系统的核心引擎。</p>
+            <h3>九、结语</h3>
+            <p>HR SaaS 的下一阶段，已经不只是“数字化”。而是：人才智能化。大模型正在改变：招聘流程、人才匹配、面试方式、组织管理、人才决策。未来真正优秀的 HR 系统：不只是“管理人”。而是：理解人。</p>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <a href="#" class="card-link" data-nav="blog">← 返回文章列表</a>
+        </div>
+      </div>
+
+      <!-- 关于我页面 -->
+      <div id="about-page" class="content-pane">
+        <div style="text-align: center; padding: 1.5rem 0 0.5rem">
+          <h1>About me</h1>
+        </div>
+        <div class="about-card">
+          <p class="about-intro">
+            作为一个十几年的产品老狗，深知自己有很多的不足，但每一份努力都会为自己的人生新添华丽的篇章。
+          </p>
+          <h2 class="contact-title">
+            <svg
+              class="contact-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2" fill="#2563eb" />
+              <path
+                d="M5 8l7 5 7-5"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <rect
+                x="7"
+                y="15"
+                width="10"
+                height="2"
+                rx="1"
+                fill="#fff"
+                opacity="0.9"
+              />
+            </svg>
+            Contact me
+          </h2>
+          <p class="contact-copy">
+            每一份联系，都为世界的变化创造更多的可能性。
+          </p>
+          <div class="qrcode-placeholder">
+            <img
+              src="./E329BC67-DD20-46F7-B810-0FA7E2B68C94.png"
+              alt="微信二维码"
+            />
+            <span>扫码加我</span>
+          </div>
+          <div class="contact-email">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="14"
+                rx="2"
+                fill="#eff6ff"
+                stroke="#2563eb"
+                stroke-width="1.5"
+              />
+              <path
+                d="M5.5 8.5l6.5 4.7 6.5-4.7"
+                stroke="#2563eb"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>pengwenhui1990@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>© 2026 彭文辉 | 沉淀思考 · 开放协作</div>
+      <div style="margin-top: 0.5rem">
+        基于真实履历构建 | 产品经理的实践笔记
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        const pages = {
+          home: document.getElementById("home-page"),
+          experience: document.getElementById("experience-page"),
+          projects: document.getElementById("projects-page"),
+          blog: document.getElementById("blog-page"),
+          "blog-ai-tools": document.getElementById("blog-ai-tools"),
+          "blog-smart-eldercare": document.getElementById(
+            "blog-smart-eldercare",
+          ),
+          "blog-credit-user": document.getElementById("blog-credit-user"),
+          "blog-hr-saas": document.getElementById("blog-hr-saas"),
+          about: document.getElementById("about-page"),
+        };
+        const blogPages = [
+          "blog-ai-tools",
+          "blog-smart-eldercare",
+          "blog-credit-user",
+          "blog-hr-saas",
+        ];
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        function switchPage(pageId) {
+          if (!pages[pageId]) pageId = "home";
+          Object.values(pages).forEach((pane) => {
+            if (!pane) return;
+            pane.classList.toggle("active-pane", pane === pages[pageId]);
+          });
+          const navPage = blogPages.includes(pageId) ? "blog" : pageId;
+          navLinks.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("data-page") === navPage,
+            );
+          });
+        }
+
+        function updateHash(pageId) {
+          window.location.hash = "#" + pageId;
+        }
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const page = this.getAttribute("data-page");
+            if (page && pages[page]) {
+              switchPage(page);
+              updateHash(page);
+            }
+          });
+        });
+
+        const logo = document.getElementById("logo-home");
+        if (logo) {
+          logo.addEventListener("click", function (e) {
+            e.preventDefault();
+            switchPage("home");
+            updateHash("home");
+          });
+        }
+
+        const allNavTriggers = document.querySelectorAll("[data-nav]");
+        allNavTriggers.forEach((el) => {
+          el.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = this.getAttribute("data-nav");
+            if (target && pages[target]) {
+              switchPage(target);
+              updateHash(target);
+            }
+          });
+        });
+
+        window.addEventListener("hashchange", function () {
+          const hash = window.location.hash.slice(1) || "home";
+          switchPage(hash);
+        });
+
+        const initialPage = window.location.hash.slice(1) || "home";
+        switchPage(initialPage);
+      })();
+    </script>
+  </body>
+</html>
